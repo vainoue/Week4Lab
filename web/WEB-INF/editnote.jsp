@@ -16,9 +16,9 @@
         <h2>Edit Note</h2>
         <form method="post" action="view">
             Title: 
-            <input type="text" name="title"><br>
+            <input type="text" name="title" value="${note.title}"><br>
             Contents: 
-            <textarea name="contents"></textarea><br>
+            <textarea name="contents">${note.content}</textarea><br>
             <input type="submit" value="Save">
         </form>
     </body>

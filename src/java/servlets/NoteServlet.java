@@ -5,12 +5,16 @@
  */
 package servlets;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Note;
 
 /**
  *
@@ -23,6 +27,16 @@ public class NoteServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String editNote = request.getParameter("edit");
+        
+        String path = getServletContext().getRealPath("/WEB-INF/note.txt");
+        
+        BufferedReader br = new BufferedReader(new FileReader(new File(path)));
+        
+        String readTitle = br.readLine();
+        String readContent = br.readLine();
+        
+        Note note = new Note(readTitle, readContent);
+        request.setAttribute("note", note);
         
         if (editNote != null) {
             getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp")
