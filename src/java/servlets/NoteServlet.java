@@ -21,6 +21,14 @@ public class NoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String editNote = request.getParameter("edit");
+        
+        if (editNote != null) {
+            getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp")
+                .forward(request, response);
+        }
+        
         getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp")
                 .forward(request, response);
     }
