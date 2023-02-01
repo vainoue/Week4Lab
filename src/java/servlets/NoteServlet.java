@@ -30,26 +30,33 @@ public class NoteServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String editNote = request.getParameter("edit");
-        
+                
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         
         BufferedReader br = new BufferedReader(new FileReader(new File(path)));
         
         String readTitle = br.readLine();
         String readContent = br.readLine();
-        
+        String moreLine = "";
+        do {
+            moreLine = br.readLine();
+            if (moreLine != null) {
+                readContent = readContent + "\n" + moreLine;
+            }
+        } while (moreLine != null);
+                        
         br.close();
         
         Note note = new Note(readTitle, readContent);
         request.setAttribute("note", note);
-        
+               
         if (editNote != null) {
             getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp")
                 .forward(request, response);
         }
         
         getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp")
-                .forward(request, response);
+                .forward(request, response);        
     }
 
     @Override
@@ -65,7 +72,9 @@ public class NoteServlet extends HttpServlet {
         String printContent = request.getParameter("content");
         
         pw.println(printTitle);
-        pw.println(printContent);
+        pw.print(printContent);
+        
+        printContent = printContent.replace("\n", "<br>");
         
         pw.close();
         

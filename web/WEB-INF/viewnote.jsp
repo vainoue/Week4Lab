@@ -18,5 +18,6 @@
         <strong>Contents:</strong><br>
         ${note.content}<br><br>
         <a href="note?edit">Edit</a>
+        <br>
     </body>
 </html>
